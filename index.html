@@ -20,8 +20,23 @@
     </form>
 
     <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
+      $('form').submit(function() {
+      var username = $('#m').val();
+      socket.emit('username', username);
+      socket.emit('chat message', username);
+      $('#m').val('');
+      return false;
+      });
+      socket.on('chat message', function(msg) {
+      $('#messages').append($('<li>').text(msg));
+	});
+	socket.on('bid', function(data) {
+	alert(data.msg);
+	$('#messages').append(data.msg);
+	});
     </script>
   </body>
 </html>
