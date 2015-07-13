@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/3.5.1/build/button/button-min.js"></script>
+  </head>
+  <body class='yui3-skin-sam'>
+    <h3>Please Log In</h3>
+    <form method='POST' action='/'>
+      UserName <input type='text' name='username' id='username' />
+      <br />
+      Password <input type='password' name='password' id='password' />
+      <br />
+      <div style='color:red' id='errormsg'><%= errormsg %></div>
+      <input type='submit' name='action' value='login'/>
+    </form>
+  </body>
+</html>

@@ -10,7 +10,7 @@ var Producer = kafka.Producer,
     producer = new Producer(client),
     km = new KeyedMessage('keyed', 'a keyed message'),
     payloads = [
-	{ topic: 'socktopic', messages: km, partition:0 }
+	{ topic: 'candidate_activity', messages: km, partition:0 }
     ];
 
 producer.on('ready', function () {
@@ -19,7 +19,7 @@ producer.on('ready', function () {
 	input = d.toString().substring(0, d.length-1);
 	console.log('you entered ' + input);
 	payloads = [
-	    { topic: 'socktopic', messages: input, partition:0 }
+	    { topic: 'candidate_activity', messages: input, partition:0 }
 	];
 	producer.send(payloads, function (err, data) {
 	    console.log(err || data);

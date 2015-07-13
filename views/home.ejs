@@ -1,0 +1,127 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  <head> 
+    <meta charset="utf-8"> 
+    <title>Twitter Bootstrap Grid System Example - Twitter Bootstrap Tutorial</title> 
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/3.5.1/build/button/button-min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>    
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+    <link href="/stylesheets/mystyle.css" rel="stylesheet">    
+    <style>
+      
+    </style>
+    <script type="text/javascript">
+       $(document).ready(function () {
+           $("#tooltip").tooltip();
+       });
+    </script>
+  </head>
+  <body class="wrapper">
+    <!-- Header -->
+    <div class="navbar">
+      <div class="navbar-inner headerArea">
+	<div class="container">
+	  <a class="brand" href="#"><img src="/images/11.png" /> <strong>Linkd</strong></a>
+	  <form class="form-search">
+	    <div style="position: absolute; top: 1.1%;  left: 35%;">
+	      <div class="input-append">
+		<input type="text" class="input-xlarge search-query" placeholder="Search">
+		<a href="#" class="btn"><i class="icon-search"></i></a>
+	      </div>
+	    </div>
+	    <div class="pull-right" style="margin-top: 0.3%;">
+		<a href="#" class="links add-link" id="tooltip" data-original-title="Add Link" data-placement="bottom"><img src="/images/5.png" /><strong>Link It!</strong></a>
+	      <div class="btn-group" style="font-size: 16px;">
+		<a href="#" class="btn dropdown-toggle" data-toggle="dropdown" style="color: black"><i class="icon-user"></i> karthic891 <span class="caret"></span></a>
+		<ul class="dropdown-menu">
+		  <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+		  <li class="divider"></li>
+		  <li><a href="logout"><i class="icon-off"></i> Logout</a></li>
+		</ul>
+	      </div>
+	    </div>
+	  </form>
+	  </div>
+      </div>
+    </div>
+
+    <!-- Content Body -->
+    <div class="container">
+      <input type="hidden" id="candidate_name" name="candidate_name" value=<%= candidate %> />
+      <h2>Welcome <%= candidate %></h2>
+      <br />
+      Messages<br />
+      <ul id="messages"></ul>
+      
+      <br />
+      <form method='post' action='/logout'>
+	<input type='submit' name='logout' value='logout' />
+      </form>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+	<p class="pull-right">
+	<center>
+	  <p><img src="/images/11.png" />
+	  Copyright &copy; 2012 - Linkd Inc.</p>
+	  <p> Any feedbacks, please mail to: <a href="mailto:feedback@linkd.com">feedback@linkd.com</a></p>
+	</center>
+      </div>
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+
+    <!-- Socket.io code -->
+    var socket = io();
+    
+    <!-- $('form').submit(function() { -->
+    <!--     socket.emit('join_room', {room_name: 'karthic'}); -->
+    <!-- }); -->
+    
+    socket.on('connect', function () {
+        var candidate = $("#candidate_name").val();
+        socket.emit('join_room', { newroom: candidate });
+    });
+       
+    socket.on('update', function (data) {
+        $('#updates').append($('<li>').text(data));
+	});
+
+    socket.on('activity', function (data) {
+	<!-- data = JSON.parse(data); -->
+	$('#messages').append($('<li>').text(data));
+	});
+</script>
+    
+  </body>
+</html>
+
+<!-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+
+    <style>
+      .txtTransparentBG {
+        color: #C0C0C0;
+      }
+      .txtField {
+        color: #000000;
+      }
+    </style>
+  </head>
+  <body>
+
+
+</body>
+</html>
+
+-->

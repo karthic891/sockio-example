@@ -14,30 +14,38 @@
     </style>
   </head>
   <body>
+    <h1><%= candidate %></h1>
+    Messages<br />
     <ul id="messages"></ul>
+
+    <br />
+    Updates <br />
+    <ul id="updates"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="client_side.js"></script>
     <script>
-      var socket = io();
-      
-$('form').submit(function() {
-    var username = $('#m').val();
-    socket.emit('username', username);
-    $('#m').val('');
-    return false;
+      var socket = io("http://localhost:3000");
+
+      <!-- $('form').submit(function() { -->
+      <!--     socket.emit('join_room', {room_name: 'karthic'}); -->
+      <!-- }); -->
+
+      socket.on('connect', function() {
+        socket.emit('join_room', { newroom: 'John'});
+      });
+
+socket.on('update', function (data) {
+      $('#updates').append($('<li>').text(data));
 });
       
-socket.on('chat message', function(msg) {
-    $('#messages').append($('<li>').text(msg));
-});
-socket.on('bid', function(data) {
-    data = JSON.parse(data);
-    $('#messages').append($('<li>').text(data.msg));
+socket.on('activity', function (data) {
+	alert(data);
+    <!-- data = JSON.parse(data); -->
+    $('#messages').append($('<li>').text(data));
 });
     </script>
   </body>
